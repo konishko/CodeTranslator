@@ -1,7 +1,5 @@
 package token;
 
-import java.util.ArrayList;
-
 public class Token {
 	private final Object value;
 	private final String text;
