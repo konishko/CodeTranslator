@@ -3,16 +3,16 @@ package readers;
 import baseReader.BaseReader;
 import token.Token;
 
-public class JavaNewVarReader extends BaseReader {
-    public JavaNewVarReader(){
+public class PascalAssignmentReader extends BaseReader {
+    public PascalAssignmentReader(){
         super();
         this.setStates(4);
         this.setState(0);
-        this.setType("java_new_var_reader");
+        this.setType("pascal_assignment_reader");
     }
 
     protected Token correctType(String string){
-        return new Token("java_new_var_reader", string);
+        return new Token("pascal_assignment_reader", string);
     }
 
     public Token tryReadToken(String string){
@@ -28,9 +28,14 @@ public class JavaNewVarReader extends BaseReader {
                 if(Character.isLetterOrDigit(potentialToken.charAt(0)))
                     this.setState(1);
 
-                else if(Character.isWhitespace(potentialToken.charAt(0))) {
+                else if(potentialToken.startsWith(" := ")) {
+                    potentialToken = potentialToken.substring(3);
+                    tokenLength += 3;
                     this.setState(2);
+                    continue;
                 }
+                else
+                    return null;
             }
 
             else if(this.getState() == 2 & Character.isLetterOrDigit(potentialToken.charAt(0))){
@@ -41,12 +46,6 @@ public class JavaNewVarReader extends BaseReader {
                 if(Character.isLetterOrDigit(potentialToken.charAt(0)))
                     this.setState(3);
 
-                else if(potentialToken.startsWith(" = ")) {
-                    potentialToken = potentialToken.substring(3);
-                    tokenLength += 3;
-                    this.setState(3);
-                    continue;
-                }
                 else if(potentialToken.charAt(0) == ';')
                     this.setState(4);
             }
