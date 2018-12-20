@@ -8,11 +8,11 @@ public class PascalAssignmentReader extends BaseReader {
         super();
         this.setStates(4);
         this.setState(0);
-        this.setType("pascal_assignment_reader");
+        this.setType("pascal_assignment");
     }
 
     protected Token correctType(String string){
-        return new Token("pascal_assignment_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){

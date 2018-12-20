@@ -9,11 +9,11 @@ public class PascalPrintReader extends BaseReader {
         super();
         this.setStates(2);
         this.setState(0);
-        this.setType("pascal_print_reader");
+        this.setType("pascal_print");
     }
 
     protected Token correctType(String string){
-        return new Token("pascal_print_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){

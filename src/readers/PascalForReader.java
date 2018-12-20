@@ -10,11 +10,11 @@ public class PascalForReader extends BaseReader {
         super();
         this.setStates(5);
         this.setState(0);
-        this.setType("pascal_for_reader");
+        this.setType("pascal_for");
     }
 
     protected Token correctType(String string){
-        return new Token("pascal_for_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){

@@ -10,11 +10,11 @@ public class JavaForReader extends BaseReader {
         super();
         this.setStates(4);
         this.setState(0);
-        this.setType("java_for_reader");
+        this.setType("java_for");
     }
 
     protected Token correctType(String string){
-        return new Token("java_for_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){

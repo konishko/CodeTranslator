@@ -10,11 +10,11 @@ public class PascalEntryReader extends BaseReader {
         super();
         this.setStates(2);
         this.setState(0);
-        this.setType("pascal_entry_reader");
+        this.setType("pascal_entry");
     }
 
     protected Token correctType(String string){
-        return new Token("pascal_entry_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){
@@ -52,7 +52,6 @@ public class PascalEntryReader extends BaseReader {
 
             tokenLength++;
             potentialToken = potentialToken.substring(1);
-
         }
 
         String result = string.substring(0, tokenLength);

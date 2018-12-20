@@ -29,6 +29,8 @@ abstract public class BaseReader
         return this.states;
     }
 
+    public String getType(){ return this.type; }
+
     protected abstract Token correctType(String string);
 
     public abstract Token tryReadToken(String input);

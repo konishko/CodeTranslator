@@ -8,11 +8,11 @@ public class JavaAssignmentReader extends BaseReader {
         super();
         this.setStates(4);
         this.setState(0);
-        this.setType("java_assignment_reader");
+        this.setType("java_assignment");
     }
 
     protected Token correctType(String string){
-        return new Token("java_assignment_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){

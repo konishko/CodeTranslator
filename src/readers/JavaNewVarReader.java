@@ -8,11 +8,11 @@ public class JavaNewVarReader extends BaseReader {
         super();
         this.setStates(4);
         this.setState(0);
-        this.setType("java_new_var_reader");
+        this.setType("java_new_var");
     }
 
     protected Token correctType(String string){
-        return new Token("java_new_var_reader", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){
@@ -63,5 +63,4 @@ public class JavaNewVarReader extends BaseReader {
         token.setChilds(childTokens);
         return token;
     }
-
 }

@@ -10,11 +10,11 @@ public class JavaEntryReader extends BaseReader {
         super();
         this.setStates(2);
         this.setState(0);
-        this.setType("java_entry_reader");
+        this.setType("java_entry_");
     }
 
     protected Token correctType(String string){
-        return new Token("er", string);
+        return new Token(this.getType(), string);
     }
 
     public Token tryReadToken(String string){
@@ -50,6 +50,7 @@ public class JavaEntryReader extends BaseReader {
                 potentialToken = potentialToken.substring(childLength);
 
                 Lexer childLexer = new Lexer();
+                childLexer.register(new JavaEntryReader());
                 childLexer.register(new JavaForReader());
                 childLexer.register(new JavaAssignmentReader());
                 childLexer.register(new JavaNewVarReader());
