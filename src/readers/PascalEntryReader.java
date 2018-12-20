@@ -21,16 +21,20 @@ public class PascalEntryReader extends BaseReader {
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         String initialCheck = "begin";
         while(this.getState() != this.getStates()) {
             if (potentialToken.startsWith(initialCheck)) {
                 potentialToken = potentialToken.substring(initialCheck.length());
                 tokenLength += initialCheck.length();
+                value += initialCheck;
                 this.setState(1);
                 continue;
-            } else if (this.getState() == 1) {
+            }
+            else if (this.getState() == 1) {
                 if (potentialToken.startsWith("end.")) {
                     potentialToken = potentialToken.substring(4);
+                    value += " end.";
                     tokenLength += 4;
                     this.setState(2);
 
@@ -48,12 +52,17 @@ public class PascalEntryReader extends BaseReader {
                     continue;
                 } else
                     this.setState(1);
-            } else return null;
+            }
+            else return null;
+
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
 
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
-
+        this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
         Token token = this.correctType(result);
         token.setChilds(childTokens);

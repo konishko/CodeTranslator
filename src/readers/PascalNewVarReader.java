@@ -11,16 +11,14 @@ public class PascalNewVarReader extends BaseReader {
         this.setType("pascal_new_var");
     }
 
-    protected Token correctType(String string){
-        return new Token(this.getType(), string);
-    }
-
     public Token tryReadToken(String string){
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         while(this.getState() != this.getStates()){
             if(this.getState() == 0 & Character.isLetterOrDigit(potentialToken.charAt(0))) {
+                this.setCollectingValue(true);
                 this.setState(1);
             }
 
@@ -45,21 +43,28 @@ public class PascalNewVarReader extends BaseReader {
                     potentialToken = potentialToken.substring(3);
                     tokenLength += 3;
                     this.setState(3);
+                    value += " := ";
                     continue;
                 }
-                else if(potentialToken.charAt(0) == ';')
+                else if(potentialToken.charAt(0) == ';') {
+                    this.setCollectingValue(false);
                     this.setState(4);
+                }
             }
 
             else
                 return null;
 
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
+
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
         this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
-        Token token = this.correctType(result);
+        Token token = this.correctType(result, value);
         token.setChilds(childTokens);
         return token;
     }

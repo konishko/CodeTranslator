@@ -21,6 +21,7 @@ public class JavaForReader extends BaseReader {
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         String initialCheck = "for";
         while(this.getState() != this.getStates()){
             if(potentialToken.startsWith(initialCheck)) {
@@ -30,15 +31,27 @@ public class JavaForReader extends BaseReader {
                 continue;
             }
 
-            if(this.getState() == 1 & potentialToken.startsWith("(")) {
-                this.setState(2);
+            else if(this.getState() == 1) {
+                if (potentialToken.startsWith("("))
+                    this.setState(2);
+
+                else
+                    return null;
             }
 
-            if(this.getState() == 2 & potentialToken.startsWith(")")){
-                this.setState(3);
+            else if(this.getState() == 2){
+                if(potentialToken.startsWith(")")) {
+                    this.setCollectingValue(false);
+                    this.setState(3);
+                }
+
+                else{
+                    this.setState(2);
+                    this.setCollectingValue(true);
+                }
             }
 
-            if(this.getState() == 3 & potentialToken.startsWith("{")) {
+            else if(this.getState() == 3 & potentialToken.startsWith("{")) {
                 int countOfClosingBrackets = 1;
                 int childLength = 1;
                 String copyOfToken = potentialToken.substring(1);
@@ -71,10 +84,14 @@ public class JavaForReader extends BaseReader {
             else
                 return null;
 
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
+
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
         this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
         Token token = this.correctType(result);
         token.setChilds(childTokens);

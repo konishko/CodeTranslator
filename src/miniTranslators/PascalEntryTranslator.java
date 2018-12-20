@@ -8,7 +8,8 @@ import token.Token;
 public class PascalEntryTranslator extends BaseMiniTranslator {
     public PascalEntryTranslator(){
         super();
-        this.setType("pascal_entry");
+        this.setType("entry");
+        this.setLangName("pascal");
     }
 
     public Token toPseudo(Token token){

@@ -8,7 +8,8 @@ import token.Token;
 public class PascalForTranslator extends BaseMiniTranslator {
     public PascalForTranslator(){
         super();
-        this.setType("pascal_for");
+        this.setType("for");
+        this.setLangName("pascal");
     }
 
     public Token toPseudo(Token token){

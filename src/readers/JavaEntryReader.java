@@ -21,16 +21,18 @@ public class JavaEntryReader extends BaseReader {
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         String initialCheck = "public static void main(String[] args)";
         while(this.getState() != this.getStates()){
             if(potentialToken.startsWith(initialCheck)) {
+                value += initialCheck;
                 potentialToken = potentialToken.substring(initialCheck.length());
                 tokenLength += initialCheck.length();
                 this.setState(1);
                 continue;
             }
 
-            if(this.getState() == 1 & potentialToken.startsWith("{")) {
+            else if(this.getState() == 1 & potentialToken.startsWith("{")) {
                 int countOfClosingBrackets = 1;
                 int childLength = 1;
                 String copyOfToken = new String(potentialToken.substring(1));
@@ -58,16 +60,21 @@ public class JavaEntryReader extends BaseReader {
 
                 childTokens = childLexer.tokenize(childString);
 
+                value += " }";
                 this.setState(2);
             }
 
             else
                 return null;
 
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
+
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
         this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
         Token token = this.correctType(result);
         token.setChilds(childTokens);

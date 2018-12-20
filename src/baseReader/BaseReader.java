@@ -7,6 +7,7 @@ abstract public class BaseReader
     private int state;
     private int states;
     private String type;
+    private boolean collectingValue = false;
 
     public void setType(String type){
         this.type = type;
@@ -21,6 +22,10 @@ abstract public class BaseReader
             this.state = state;
     }
 
+    public void setCollectingValue(boolean collectingValue){
+        this.collectingValue = collectingValue;
+    }
+
     public int getState(){
         return this.state;
     }
@@ -31,7 +36,13 @@ abstract public class BaseReader
 
     public String getType(){ return this.type; }
 
-    protected abstract Token correctType(String string);
+    public boolean getCollectingValue(){
+        return this.collectingValue;
+    }
 
-    public abstract Token tryReadToken(String input);
+    protected Token correctType(String text, String value){
+        return new Token(this.getType(), text, value);
+    }
+
+    abstract public Token tryReadToken(String input);
 }

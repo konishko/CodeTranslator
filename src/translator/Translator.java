@@ -2,14 +2,14 @@ package translator;
 
 import baseLanguage.BaseLanguage;
 import token.Token;
-import baseReader.BaseReader;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Translator {
-    private ArrayList<BaseLanguage> languages = new ArrayList<BaseLanguage>();
+    private Map<String, BaseLanguage> languages = new HashMap<String, BaseLanguage>();
 
     public void register(BaseLanguage lang){
-        languages.add(lang);
+        languages.put(lang.getName(), lang);
     }
 
     public Token[] translate(String initialLang, String targetLang, String source){

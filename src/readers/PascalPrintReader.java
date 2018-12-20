@@ -20,6 +20,7 @@ public class PascalPrintReader extends BaseReader {
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         String initialCheck = "print(";
         while(this.getState() != this.getStates()){
             if(potentialToken.startsWith(initialCheck)) {
@@ -43,10 +44,14 @@ public class PascalPrintReader extends BaseReader {
             else
                 return null;
 
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
+
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
         this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
         Token token = this.correctType(result);
         token.setChilds(childTokens);

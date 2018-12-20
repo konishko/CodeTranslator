@@ -2,11 +2,12 @@ package baseLanguage;
 
 import baseMiniTranslator.BaseMiniTranslator;
 
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 abstract public class BaseLanguage {
     private String name;
-    private ArrayList<BaseMiniTranslator> miniTranslators = new ArrayList<BaseMiniTranslator>();
+    private Map<String, BaseMiniTranslator> miniTranslators = new HashMap<String, BaseMiniTranslator>();
 
     public void setName(String name){
         this.name = name;
@@ -18,6 +19,6 @@ abstract public class BaseLanguage {
 
     public void register(BaseMiniTranslator miniTranslator){
         if(miniTranslator.getType().startsWith(this.name))
-            miniTranslators.add(miniTranslator);
+            miniTranslators.put(miniTranslator.getType(), miniTranslator);
     }
 }

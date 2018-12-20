@@ -8,7 +8,8 @@ import token.Token;
 public class JavaPrintTranslator extends BaseMiniTranslator {
     public JavaPrintTranslator(){
         super();
-        this.setType("java_print");
+        this.setType("print");
+        this.setLangName("java");
     }
 
     public Token toPseudo(Token token){

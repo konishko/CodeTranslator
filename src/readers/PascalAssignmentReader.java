@@ -19,8 +19,10 @@ public class PascalAssignmentReader extends BaseReader {
         String potentialToken = string;
         Token[] childTokens = new Token[0];
         int tokenLength = 0;
+        String value = "";
         while(this.getState() != this.getStates()){
             if(this.getState() == 0 & Character.isLetterOrDigit(potentialToken.charAt(0))) {
+                this.setCollectingValue(true);
                 this.setState(1);
             }
 
@@ -47,16 +49,21 @@ public class PascalAssignmentReader extends BaseReader {
                     this.setState(3);
 
                 else if(potentialToken.charAt(0) == ';')
+                    this.setCollectingValue(false);
                     this.setState(4);
             }
 
             else
                 return null;
 
+            if(this.getCollectingValue())
+                value += potentialToken.charAt(0);
+
             tokenLength++;
             potentialToken = potentialToken.substring(1);
         }
         this.setState(0);
+        this.setCollectingValue(false);
         String result = string.substring(0, tokenLength);
         Token token = this.correctType(result);
         token.setChilds(childTokens);

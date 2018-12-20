@@ -8,7 +8,8 @@ import token.Token;
 public class JavaNewVarTranslator extends BaseMiniTranslator {
     public JavaNewVarTranslator(){
         super();
-        this.setType("java_new_var");
+        this.setType("new_var");
+        this.setLangName("java");
     }
 
     public Token toPseudo(Token token){
