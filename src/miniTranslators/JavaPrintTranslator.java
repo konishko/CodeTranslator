@@ -8,7 +8,7 @@ import token.Token;
 public class JavaPrintTranslator extends BaseMiniTranslator {
     public JavaPrintTranslator(){
         super();
-        this.type = "java_assignment";
+        this.type = "java_print";
     }
 
     public Token toPseudo(Token token){
@@ -17,21 +17,19 @@ public class JavaPrintTranslator extends BaseMiniTranslator {
         String[] parsedValue = value.split(" ");
         Map<String, String> pseudoTokenValue = new HashMap<String, String>();
 
-        pseudoTokenValue.put("var type", parsedValue[0]);
-        pseudoTokenValue.put("var name", parsedValue[1]);
-        pseudoTokenValue.put("var value", parsedValue[3]);
+        pseudoTokenValue.put("print text", parsedValue[0]);
 
-        Token pseudoToken = new Token("pseudo_assignment", token.getText(), pseudoTokenValue);
+        Token pseudoToken = new Token("pseudo_print", token.getText(), pseudoTokenValue);
         return pseudoToken;
     }
 
     public Token fromPseudo(Token token){
         Map<String, String> value = (Map<String, String>)token.getValue();
 
-        String tokenValue = String.format("% % = %", value.get("var type"), value.get("var name"), value.get("var value"));
+        String tokenValue = String.format("System.out.print(%)", value.get("print text"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("java_assignment", tokenText, tokenValue);
+        Token javaToken = new Token("java_print", tokenText, tokenValue);
         return javaToken;
     }
 }

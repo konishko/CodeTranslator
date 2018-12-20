@@ -17,9 +17,8 @@ public class JavaAssignmentTranslator extends BaseMiniTranslator {
         String[] parsedValue = value.split(" ");
         Map<String, String> pseudoTokenValue = new HashMap<String, String>();
 
-        pseudoTokenValue.put("var type", parsedValue[0]);
-        pseudoTokenValue.put("var name", parsedValue[1]);
-        pseudoTokenValue.put("var value", parsedValue[3]);
+        pseudoTokenValue.put("var name", parsedValue[0]);
+        pseudoTokenValue.put("var value", parsedValue[2]);
 
         Token pseudoToken = new Token("pseudo_assignment", token.getText(), pseudoTokenValue);
         return pseudoToken;

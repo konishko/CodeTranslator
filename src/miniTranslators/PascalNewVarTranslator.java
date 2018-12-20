@@ -8,7 +8,7 @@ import token.Token;
 public class PascalNewVarTranslator extends BaseMiniTranslator {
     public PascalNewVarTranslator(){
         super();
-        this.type = "java_assignment";
+        this.type = "pascal_new_variable";
     }
 
     public Token toPseudo(Token token){
@@ -31,7 +31,7 @@ public class PascalNewVarTranslator extends BaseMiniTranslator {
         String tokenValue = String.format("% % = %", value.get("var type"), value.get("var name"), value.get("var value"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("java_assignment", tokenText, tokenValue);
+        Token javaToken = new Token("pascal_new_variable", tokenText, tokenValue);
         return javaToken;
     }
 }

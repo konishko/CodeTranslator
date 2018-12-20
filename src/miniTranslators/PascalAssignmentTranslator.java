@@ -8,7 +8,7 @@ import token.Token;
 public class PascalAssignmentTranslator extends BaseMiniTranslator {
     public PascalAssignmentTranslator(){
         super();
-        this.type = "java_assignment";
+        this.type = "pascal_assignment";
     }
 
     public Token toPseudo(Token token){
@@ -17,9 +17,8 @@ public class PascalAssignmentTranslator extends BaseMiniTranslator {
         String[] parsedValue = value.split(" ");
         Map<String, String> pseudoTokenValue = new HashMap<String, String>();
 
-        pseudoTokenValue.put("var type", parsedValue[0]);
-        pseudoTokenValue.put("var name", parsedValue[1]);
-        pseudoTokenValue.put("var value", parsedValue[3]);
+        pseudoTokenValue.put("var name", parsedValue[0]);
+        pseudoTokenValue.put("var value", parsedValue[2]);
 
         Token pseudoToken = new Token("pseudo_assignment", token.getText(), pseudoTokenValue);
         return pseudoToken;
@@ -28,10 +27,10 @@ public class PascalAssignmentTranslator extends BaseMiniTranslator {
     public Token fromPseudo(Token token){
         Map<String, String> value = (Map<String, String>)token.getValue();
 
-        String tokenValue = String.format("% % = %", value.get("var type"), value.get("var name"), value.get("var value"));
+        String tokenValue = String.format("% := %", value.get("var name"), value.get("var value"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("java_assignment", tokenText, tokenValue);
+        Token javaToken = new Token("pascal_assignment", tokenText, tokenValue);
         return javaToken;
     }
 }

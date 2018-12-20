@@ -8,30 +8,35 @@ import token.Token;
 public class PascalForTranslator extends BaseMiniTranslator {
     public PascalForTranslator(){
         super();
-        this.type = "java_assignment";
+        this.type = "pascal_for";
     }
 
     public Token toPseudo(Token token){
         String value = (String)token.getValue();
 
-        String[] parsedValue = value.split(" ");
+        String[] parsedValue = value.split(" |:=|to|do");
         Map<String, String> pseudoTokenValue = new HashMap<String, String>();
 
-        pseudoTokenValue.put("var type", parsedValue[0]);
-        pseudoTokenValue.put("var name", parsedValue[1]);
-        pseudoTokenValue.put("var value", parsedValue[3]);
+        pseudoTokenValue.put("iterable type", parsedValue[0]);
+        pseudoTokenValue.put("iterable", parsedValue[1]);
+        pseudoTokenValue.put("iterable init value", parsedValue[3]);
+        pseudoTokenValue.put("iterable limit", parsedValue[5]);
 
-        Token pseudoToken = new Token("pseudo_assignment", token.getText(), pseudoTokenValue);
+        Token pseudoToken = new Token("pseudo_for", token.getText(), pseudoTokenValue);
         return pseudoToken;
     }
 
     public Token fromPseudo(Token token){
         Map<String, String> value = (Map<String, String>)token.getValue();
 
-        String tokenValue = String.format("% % = %", value.get("var type"), value.get("var name"), value.get("var value"));
-        String tokenText = String.format("%;", tokenValue);
+        String tokenValue = String.format("1$ 2$ := 3$ to $4 do",
+                value.get("iterable type"),
+                value.get("iterable"),
+                value.get("iterable init value"),
+                value.get("iterable limit"));
+        String tokenText = String.format("for %;", tokenValue);
 
-        Token javaToken = new Token("java_assignment", tokenText, tokenValue);
+        Token javaToken = new Token("pascal_for", tokenText, tokenValue);
         return javaToken;
     }
 }
