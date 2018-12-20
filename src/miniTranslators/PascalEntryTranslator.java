@@ -8,7 +8,7 @@ import token.Token;
 public class PascalEntryTranslator extends BaseMiniTranslator {
     public PascalEntryTranslator(){
         super();
-        this.type = "pascal_entry";
+        this.setType("pascal_entry");
     }
 
     public Token toPseudo(Token token){
@@ -27,7 +27,7 @@ public class PascalEntryTranslator extends BaseMiniTranslator {
 
         String tokenValue = "begin end.";
 
-        Token javaToken = new Token("pascal_entry", tokenValue);
+        Token javaToken = new Token(this.getType(), tokenValue);
         return javaToken;
     }
 }

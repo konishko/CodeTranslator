@@ -8,7 +8,7 @@ import token.Token;
 public class PascalPrintTranslator extends BaseMiniTranslator {
     public PascalPrintTranslator(){
         super();
-        this.type = "pascal_print";
+        this.setType("pascal_print");
     }
 
     public Token toPseudo(Token token){
@@ -29,7 +29,7 @@ public class PascalPrintTranslator extends BaseMiniTranslator {
         String tokenValue = String.format("print(%)", value.get("print text"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("pascal_print", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }

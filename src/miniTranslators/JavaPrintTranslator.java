@@ -8,7 +8,7 @@ import token.Token;
 public class JavaPrintTranslator extends BaseMiniTranslator {
     public JavaPrintTranslator(){
         super();
-        this.type = "java_print";
+        this.setType("java_print");
     }
 
     public Token toPseudo(Token token){
@@ -29,7 +29,7 @@ public class JavaPrintTranslator extends BaseMiniTranslator {
         String tokenValue = String.format("System.out.print(%)", value.get("print text"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("java_print", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }

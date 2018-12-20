@@ -8,7 +8,7 @@ import token.Token;
 public class JavaEntryTranslator extends BaseMiniTranslator {
     public JavaEntryTranslator(){
         super();
-        this.type = "java_entry";
+        this.setType("java_entry");
     }
 
     public Token toPseudo(Token token){
@@ -27,7 +27,7 @@ public class JavaEntryTranslator extends BaseMiniTranslator {
 
         String tokenValue = "begin   end.";
 
-        Token javaToken = new Token("java_entry", tokenValue);
+        Token javaToken = new Token(this.getType(), tokenValue);
         return javaToken;
     }
 }

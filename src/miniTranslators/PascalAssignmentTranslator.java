@@ -8,7 +8,7 @@ import token.Token;
 public class PascalAssignmentTranslator extends BaseMiniTranslator {
     public PascalAssignmentTranslator(){
         super();
-        this.type = "pascal_assignment";
+        this.setType("pascal_assignment");
     }
 
     public Token toPseudo(Token token){
@@ -30,7 +30,7 @@ public class PascalAssignmentTranslator extends BaseMiniTranslator {
         String tokenValue = String.format("% := %", value.get("var name"), value.get("var value"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("pascal_assignment", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }

@@ -8,7 +8,7 @@ import token.Token;
 public class JavaForTranslator extends BaseMiniTranslator {
     public JavaForTranslator(){
         super();
-        this.type = "java_for";
+        this.setType("java_for");
     }
 
     public Token toPseudo(Token token){
@@ -36,7 +36,7 @@ public class JavaForTranslator extends BaseMiniTranslator {
                                           value.get("iterable limit"));
         String tokenText = String.format("for(%);", tokenValue);
 
-        Token javaToken = new Token("java_for", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }

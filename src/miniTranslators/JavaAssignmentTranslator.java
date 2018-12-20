@@ -8,7 +8,7 @@ import token.Token;
 public class JavaAssignmentTranslator extends BaseMiniTranslator {
     public JavaAssignmentTranslator(){
         super();
-        this.type = "java_assignment";
+        this.setType("java_assignment");
     }
 
     public Token toPseudo(Token token){
@@ -27,10 +27,10 @@ public class JavaAssignmentTranslator extends BaseMiniTranslator {
     public Token fromPseudo(Token token){
         Map<String, String> value = (Map<String, String>)token.getValue();
 
-        String tokenValue = String.format("% % = %", value.get("var type"), value.get("var name"), value.get("var value"));
+        String tokenValue = String.format("% = %", value.get("var name"), value.get("var value"));
         String tokenText = String.format("%;", tokenValue);
 
-        Token javaToken = new Token("java_assignment", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }

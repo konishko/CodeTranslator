@@ -8,7 +8,7 @@ import token.Token;
 public class PascalForTranslator extends BaseMiniTranslator {
     public PascalForTranslator(){
         super();
-        this.type = "pascal_for";
+        this.setType("pascal_for");
     }
 
     public Token toPseudo(Token token){
@@ -36,7 +36,7 @@ public class PascalForTranslator extends BaseMiniTranslator {
                 value.get("iterable limit"));
         String tokenText = String.format("for %;", tokenValue);
 
-        Token javaToken = new Token("pascal_for", tokenText, tokenValue);
+        Token javaToken = new Token(this.getType(), tokenText, tokenValue);
         return javaToken;
     }
 }
